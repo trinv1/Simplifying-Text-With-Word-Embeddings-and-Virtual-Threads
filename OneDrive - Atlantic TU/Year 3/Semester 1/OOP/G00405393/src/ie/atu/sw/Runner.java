@@ -1,7 +1,23 @@
 package ie.atu.sw;
 
-public class Runner {
+/**
+ * The Runner class is the entry point for the Text Simplifier project
+ * It initializes the menu face, displays options to user and holds a progress meter
+ *
+ * @author Trin Villaruel
+ * @version 4.29
+ * @since 1.8
+ */
 
+public class Runner {
+	
+	 /**
+     * The main method that starts the program.
+     * It displays the menu options and includes a progress meter demonstration.
+     *
+     * @param args the command-line arguments
+     * @throws Exception if there is an error during execution
+     */
 	public static void main(String[] args) throws Exception {
 		//You should put the following code into a menu or Menu class
 		System.out.println(ConsoleColour.WHITE);
@@ -37,12 +53,6 @@ public class Runner {
 	
 	/*
 	 *  Terminal Progress Meter
-	 *  -----------------------
-	 *  You might find the progress meter below useful. The progress effect 
-	 *  works best if you call this method from inside a loop and do not call
-	 *  System.out.println(....) until the progress meter is finished.
-	 *  
-	 *  Please note the following carefully:
 	 *  
 	 *  1) The progress meter will NOT work in the Eclipse console, but will
 	 *     work on Windows (DOS), Mac and Linux terminals.
@@ -62,8 +72,8 @@ public class Runner {
 	public static void printProgress(int index, int total) {
 		if (index > total) return;	//Out of range
         int size = 50; 				//Must be less than console width
-	    char done = '█';			//Change to whatever you like.
-	    char todo = '░';			//Change to whatever you like.
+	    char done = '#';			//Change to whatever you like.
+	    char todo = '-';			//Change to whatever you like.
 	    
 	    //Compute basic metrics for the meter
         int complete = (100 * index) / total;
@@ -92,4 +102,5 @@ public class Runner {
         //Once the meter reaches its max, move to a new line.
         if (done == total) System.out.println("\n");
     }
+	
 }
