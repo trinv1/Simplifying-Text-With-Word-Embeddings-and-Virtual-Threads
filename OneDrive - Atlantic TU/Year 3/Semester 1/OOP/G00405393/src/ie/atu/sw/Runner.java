@@ -59,8 +59,8 @@ public class Runner {
     	
         if (index > total) return;    
         int size = 50;                
-        char done = 'Y';          
-        char todo = 'D';            
+        char done = '\\';          
+        char todo = '0';            
 
         int complete = (100 * index) / total;
         int completeLen = size * complete / 100;

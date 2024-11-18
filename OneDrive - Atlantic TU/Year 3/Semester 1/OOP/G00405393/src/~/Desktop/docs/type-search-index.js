@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes","url":"allclasses-index.html"},{"p":"ie.atu.sw","l":"ConsoleColour"},{"p":"ie.atu.sw","l":"EmbeddingLoader"},{"p":"ie.atu.sw","l":"Runner"}]
