@@ -1,7 +1,5 @@
 package ie.atu.sw;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.io.*;
 
 
@@ -22,8 +20,8 @@ import java.io.*;
 public class Menu {
 
 	//Encapsulated fields
-    private EmbeddingProcessor embeddingProcessor;
-    private GoogleProcessor googleProcessor;
+    private EmbeddingLoader embeddingLoader;
+    private Google1000Loader google1000Loader;
     private Scanner scanner;
     private String outputFilePath;
     
@@ -31,8 +29,8 @@ public class Menu {
      * Constructs a new Menu instance, initializing the embedding loader and scanner.
      */
     public Menu() {
-    	embeddingProcessor = new EmbeddingProcessor();
-    	googleProcessor = new GoogleProcessor();
+    	embeddingLoader = new EmbeddingLoader();
+    	google1000Loader = new Google1000Loader();
         scanner = new Scanner(System.in);
     }
     
@@ -42,8 +40,8 @@ public class Menu {
      */
     
     public void start() {
-    	var embeddingProcessor = new EmbeddingProcessor();
-    	var googleProcessor = new GoogleProcessor();
+    	var embeddingLoader = new EmbeddingLoader();
+    	var google1000Loader = new Google1000Loader();
  
 	    boolean isRunning = true;
 	
@@ -72,36 +70,37 @@ public class Menu {
 		//Actions performed based on user input
         switch(choice) {
         	
-        	//Getting user to enter embeddings file path and loading it into program with thread       	 
-        	case 1:
-	            System.out.print("Enter the path and name of the embeddings file: ");
-	            String embeddingsFilePath = scanner.nextLine();
-	
-	            try {
-        	    	embeddingProcessor.load(embeddingsFilePath);
-        	        System.out.println("Embeddings file loaded successfully.");
-        	    } catch (FileNotFoundException e) {
-        	        System.out.println("File not found. Please make sure the file path is correct.");
-        	    } catch (Exception e) {
-        	        System.out.println(e.getMessage());
-        	    }
-            break;
+        	//Getting user to enter embeddings file path and loading it into program        	 
+            case 1:
+            	            	
+            	 System.out.print("Enter the path and name of the embeddings file: ");
+            	    String embeddingsFilePath = scanner.nextLine();
 
+            	    try {
+            	    	embeddingLoader.load(embeddingsFilePath);
+            	        System.out.println("Embeddings file loaded successfully.");
+            	    } catch (FileNotFoundException e) {
+            	        System.out.println("File not found. Please make sure the file path is correct.");
+            	    } catch (Exception e) {
+            	        System.out.println(e.getMessage());
+            	    }
+                break;
                 
-          //Getting user to enter google file path and loading it into program with thread       	 
-        	case 2:
-	            System.out.print("Enter the path and name of the Google 1000 Word file: ");
-	            String googleFilePath = scanner.nextLine();
-	
-	            try {
-        	    	googleProcessor.load(googleFilePath);
-        	        System.out.println("Google 1000 words file loaded successfully.");
-        	    } catch (FileNotFoundException e) {
-        	        System.out.println("File not found. Please make sure the file path is correct.");
-        	    } catch (Exception e) {
-        	        System.out.println(e.getMessage());
-        	    }
-            break;
+             //Getting user to enter googleWords file path and loading it into program        	 
+            case 2:
+            	            	
+            	 System.out.print("Enter the path and name of the google words file: ");
+            	    String googleWordsFilePath = scanner.nextLine();
+
+            	    try {
+            	    	google1000Loader.load(googleWordsFilePath);
+            	        System.out.println("Google 1000 Words file loaded successfully.");
+            	    } catch (FileNotFoundException e) {
+            	        System.out.println("File not found. Please make sure the file path is correct.");
+            	    } catch (Exception e) {
+            	        System.out.println(e.getMessage());
+            	    }
+                break;
            
             //Getting user to enter path for output file and generating it if not already created
             case 3:
