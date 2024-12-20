@@ -11,11 +11,11 @@ import java.util.concurrent.Executors;
 
 /**
  * The TextFileProcessor class is responsible for loading and processing words from a text file.
- * It stores the words in a ConcurrentHashMap for thread-safe access.
+ * It stores the words in a List that will be read for later use.
  *
  * @author Trin Villaruel
  * @version 4.29
- * @since 1.8
+ * @since 19
  */
 
 public class TextFileProcessor {

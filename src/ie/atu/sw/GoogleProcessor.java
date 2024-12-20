@@ -14,8 +14,8 @@ import java.util.concurrent.Executors;
  * It stores the words in a ConcurrentHashMap for thread-safe access.
  *
  * @author Trin Villaruel
- * @version 4.29
- * @since 1.8
+ * @version 2.0
+ * @since 19
  */
 
 public class GoogleProcessor {

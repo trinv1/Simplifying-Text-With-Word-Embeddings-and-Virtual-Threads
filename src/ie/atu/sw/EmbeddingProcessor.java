@@ -11,8 +11,8 @@ import java.util.concurrent.Executors;
  * It stores the embedding in a ConcurrentHashMap for thread-safe access.
  *
  * @author Trin Villaruel
- * @version 4.29
- * @since 1.8
+ * @version 2.0
+ * @since 19
  */
 public class EmbeddingProcessor {
 
@@ -44,7 +44,7 @@ public class EmbeddingProcessor {
      * Processes a single line, getting the word and its embedding.
      * 
      * Runtime: 0(1), number of parts in the line is constant  * 
-     * Reasoning: The number of operations done is contant 
+     * Reasoning: The number of operations done is constant 
      * 			  regardless of the size of the input file.
      *
      * @param line The line to process.
@@ -62,7 +62,7 @@ public class EmbeddingProcessor {
     }
 
     /**
-     * Retrieves the map of embeddings.    * 
+     * Retrieves the map of embeddings.    
      * Runtime: 0(1) - Simply returns embeddings, accessing field does not depend on size of map
      *
      * @return A ConcurrentHashMap containing word embeddings.

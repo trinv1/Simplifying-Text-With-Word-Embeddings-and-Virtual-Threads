@@ -6,8 +6,8 @@ package ie.atu.sw;
  * It holds and calls a method to a display progress meter
  *
  * @author Trin Villaruel
- * @version 4.29
- * @since 1.8
+ * @version 1.1
+ * @since 19
  */
 
 public class Runner {

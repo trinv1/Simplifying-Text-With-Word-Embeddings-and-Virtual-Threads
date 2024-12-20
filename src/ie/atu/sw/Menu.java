@@ -5,8 +5,8 @@ import java.io.*;
 
 
 /**
- * The Menu class displays the Similarity search menu with each option 1-6
- * It performs an action based on users choice
+ * The Menu is class is responsible for displaying the Virtual Threads Text Simplifier menu 
+ * with each option 1-7 & it performs an action based on users choice.
  * 
  * <p>
  * This class is responsible for managing user input, handling file paths, and
@@ -14,8 +14,8 @@ import java.io.*;
  * </p>
  * 
  * @author Trin Villaruel
- * @version 4.29
- * @since 1.8
+ * @version 2.1
+ * @since 19
  *///
 
 public class Menu {
@@ -24,6 +24,7 @@ public class Menu {
     private EmbeddingProcessor embeddingProcessor;
     private TextFileProcessor textFileProcessor;
     private GoogleProcessor googleProcessor;
+    private GoogleEmbeddings googleEmbeddings;
     private Scanner scanner;
     private String outputFilePath;
     
@@ -34,6 +35,7 @@ public class Menu {
     	embeddingProcessor = new EmbeddingProcessor();
     	googleProcessor = new GoogleProcessor();
     	textFileProcessor = new TextFileProcessor();
+        googleEmbeddings  = new GoogleEmbeddings();
         scanner = new Scanner(System.in);
     }
     
@@ -45,6 +47,7 @@ public class Menu {
     public void start() {
     	var embeddingProcessor = new EmbeddingProcessor();
     	var googleProcessor = new GoogleProcessor();
+    	var googleEmbeddings = new GoogleEmbeddings();
     	var textFileProcessor = new TextFileProcessor();
  
 	    boolean isRunning = true;
@@ -88,6 +91,15 @@ public class Menu {
         	    } catch (Exception e) {
         	        System.out.println(e.getMessage());
         	    }
+	            
+              /*  var EmbeddingsMap = embeddingProcessor.getEmbeddings();
+
+	            
+	            // Displaying the contents of the map
+                EmbeddingsMap.forEach((word, embedding) -> {
+                    System.out.print("Word: " + word + " | Embedding: ");
+                    System.out.println(java.util.Arrays.toString(embedding));
+                });*/
             break;
 
                 
@@ -113,7 +125,7 @@ public class Menu {
 	
 	            try {
 					textFileProcessor.load(textFilePath);
-        	        System.out.println("Google 1000 words file loaded successfully.");
+        	        System.out.println("Text file loaded successfully.");
         	    } catch (FileNotFoundException e) {
         	        System.out.println("File not found. Please make sure the file path is correct.");
         	    } catch (Exception e) {
@@ -141,8 +153,17 @@ public class Menu {
             
             //Exiting program
             case 6:  
-            	System.out.println("Exiting program...");
-	            isRunning = false;
+
+            	//Calling p
+                googleEmbeddings.process(googleProcessor.getGoogleWords(), embeddingProcessor.getEmbeddings());
+                var googleEmbeddingsMap = googleEmbeddings.getGoogleEmbeddings();
+                
+
+                // Display the contents of the map
+                googleEmbeddingsMap.forEach((word, embedding) -> {
+                    System.out.print("Word: " + word + " | Embedding: ");
+                    System.out.println(Arrays.toString(embedding));
+                });
 	            break;
             	
             default:
