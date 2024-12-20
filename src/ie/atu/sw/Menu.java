@@ -1,7 +1,6 @@
 package ie.atu.sw;
 import java.util.*;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+
 import java.io.*;
 
 
@@ -23,6 +22,7 @@ public class Menu {
 
 	//Encapsulated fields
     private EmbeddingProcessor embeddingProcessor;
+    private TextFileProcessor textFileProcessor;
     private GoogleProcessor googleProcessor;
     private Scanner scanner;
     private String outputFilePath;
@@ -33,6 +33,7 @@ public class Menu {
     public Menu() {
     	embeddingProcessor = new EmbeddingProcessor();
     	googleProcessor = new GoogleProcessor();
+    	textFileProcessor = new TextFileProcessor();
         scanner = new Scanner(System.in);
     }
     
@@ -44,6 +45,7 @@ public class Menu {
     public void start() {
     	var embeddingProcessor = new EmbeddingProcessor();
     	var googleProcessor = new GoogleProcessor();
+    	var textFileProcessor = new TextFileProcessor();
  
 	    boolean isRunning = true;
 	
@@ -57,10 +59,11 @@ public class Menu {
 		System.out.println("************************************************************");
 		System.out.println("(1) Specify Embeddings File");
 		System.out.println("(2) Specify Google 1000 File");
-		System.out.println("(3) Specify an Output File (default: ./out.txt)");
-		System.out.println("(4) Execute, Analyse and Report");
-		System.out.println("(5) Optional Extras...");
-		System.out.println("(6) Quit");
+		System.out.println("(3) Specify Text File");
+		System.out.println("(4) Specify an Output File (default: ./out.txt)");
+		System.out.println("(5) Execute, Analyse and Report");
+		System.out.println("(6) Optional Extras...");
+		System.out.println("(7) Quit");
 		
 		System.out.print(ConsoleColour.BLACK_BOLD_BRIGHT);
 		System.out.print("Select Option [1-6]>");
@@ -72,7 +75,7 @@ public class Menu {
 		//Actions performed based on user input
         switch(choice) {
         	
-        	//Getting user to enter embeddings file path and loading it into program with thread       	 
+        	//Getting user to enter embeddings file path and loading it into program       	 
         	case 1:
 	            System.out.print("Enter the path and name of the embeddings file: ");
 	            String embeddingsFilePath = scanner.nextLine();
@@ -88,7 +91,7 @@ public class Menu {
             break;
 
                 
-          //Getting user to enter google file path and loading it into program with thread       	 
+          //Getting user to enter google file path and loading it into program      	 
         	case 2:
 	            System.out.print("Enter the path and name of the Google 1000 Word file: ");
 	            String googleFilePath = scanner.nextLine();
@@ -102,9 +105,24 @@ public class Menu {
         	        System.out.println(e.getMessage());
         	    }
             break;
+            
+          //Getting user to enter text file path and loading it into program with thread       	 
+        	case 3:
+	            System.out.print("Enter the path and name of text file: ");
+	            String textFilePath = scanner.nextLine();
+	
+	            try {
+					textFileProcessor.load(textFilePath);
+        	        System.out.println("Google 1000 words file loaded successfully.");
+        	    } catch (FileNotFoundException e) {
+        	        System.out.println("File not found. Please make sure the file path is correct.");
+        	    } catch (Exception e) {
+        	        System.out.println(e.getMessage());
+        	    }
+            break;
            
             //Getting user to enter path for output file and generating it if not already created
-            case 3:
+            case 4:
             	System.out.print("Enter the path for the output file ( default: './out.txt'): ");
                  outputFilePath = scanner.nextLine();
 

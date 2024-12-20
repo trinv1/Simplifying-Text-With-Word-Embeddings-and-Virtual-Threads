@@ -22,7 +22,7 @@ public class EmbeddingProcessor {
     /**
      * Loading the embeddings file using virtual threads.
      * 
-     * Runtime: 0(n), n is number of lines in file     * 
+     * Runtime: 0(n) 
      * Reasoning: Each line in file is read once: 0(n)
      * 			  For each line a task is submitted to thread pool: 0(1)
      * 		      Each line is processed and has a set structure: 0(1) 

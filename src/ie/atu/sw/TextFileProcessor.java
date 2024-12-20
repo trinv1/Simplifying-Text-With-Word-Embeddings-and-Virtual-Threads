@@ -5,12 +5,12 @@ import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Executors;
 
 /**
- * The GoogleProcessor class is responsible for loading Googles 1000 most commonly used words from a file.
+ * The TextFileProcessor class is responsible for loading and processing words from a text file.
  * It stores the words in a ConcurrentHashMap for thread-safe access.
  *
  * @author Trin Villaruel
@@ -18,13 +18,13 @@ import java.util.concurrent.Executors;
  * @since 1.8
  */
 
-public class GoogleProcessor {
+public class TextFileProcessor {
 
-	//Encapsulated words in concurrent hash map
-    private Map<String, Boolean> googleWords = new ConcurrentHashMap<>();
+	//Encapsulated words in list
+    private final List<String> textWords = new ArrayList<>();
 
     /**
-     * Loading the google file using virtual threads.
+     * Loading in the text file using virtual threads.
      * 
      * Runtime: 0(n)
      * Reasoning: Each line in file is read once: 0(n)
@@ -34,12 +34,12 @@ public class GoogleProcessor {
      * Since these operations are performed for all lines in file, the total time required grows directly 
      * with the number of lines, making overall runtime O(n).
      *
-     * @param embeddingsFilePath The path to the embeddings file.
+     * @param textFilePath The path to the text file.
      * @throws Exception If there is an error reading the file.
      */
-    public void load(String googleFilePath) throws Exception {
+    public void load(String textFilePath) throws Exception {
         try (var pool = Executors.newVirtualThreadPerTaskExecutor()) {
-            Files.lines(Paths.get(googleFilePath))
+            Files.lines(Paths.get(textFilePath))
                 .forEach(line -> pool.execute(() -> process(line)));
         }
     }
@@ -47,9 +47,9 @@ public class GoogleProcessor {
     /**
      * Processes single line from google file.
      * 
-     * Runtime: 0(1), each line only have 1 word.
+     * Runtime: 0(1)
      * Reasoning: Trimming line to get rid of whitespacing: 0(1)
-     * 			  Adding word to map: 0(1) on average
+     * 			  Adding word to list: 0(1) on average
      *  
      * Number of operations done is constant regardless
      * of input size.
@@ -58,20 +58,20 @@ public class GoogleProcessor {
      * @param line The line to process.
      */
     private void process(String line) {
-            String word = line.trim(); //Trimming line
-            if (!word.isEmpty()) { 
-                googleWords.put(word, true); //Adding the word to map 
+            line = line.trim(); //Trimming line
+            if (!line.isEmpty()) { 
+                textWords.add(line); //Add processed line to list 
             }
     }
     
     /**
-     * Retrieves the map containing google words.
+     * Retrieves the list containing words.
      * 
-     * Runtime: 0(1) - Simply returns google words, accessing field does not depend on size of map
+     * Runtime: 0(1) - Simply returns words, accessing field does not depend on size of map
      *
-     * @return a ConcurrentHashMap of google words
+     * @return a list of processed lines from file
      */
-    public ConcurrentHashMap<String, Boolean> getGoogleWords() {
-        return (ConcurrentHashMap<String, Boolean>) googleWords;
+    public List<String> getWords() {
+        return textWords;
     }
 }
